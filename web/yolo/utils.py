@@ -57,7 +57,7 @@ def draw_boxes(img_names, boxes_dicts, class_names, model_size):
                                          boxes_dicts):
         img = Image.open(img_name)
         draw = ImageDraw.Draw(img)
-        font = ImageFont.truetype(font='./data/fonts/futur.ttf',
+        font = ImageFont.truetype(font='D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/fonts/futur.ttf',
                                   size=(img.size[0] + img.size[1]) // 100)
         resize_factor = \
             (img.size[0] / model_size[0], img.size[1] / model_size[1])
@@ -88,7 +88,7 @@ def draw_boxes(img_names, boxes_dicts, class_names, model_size):
 
         rgb_img = img.convert('RGB')
 
-        rgb_img.save('./detections/detection_' + str(num + 1) + '.jpg')
+        rgb_img.save('D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/detections/detection_' + str(num + 1) + '.jpg')
 
 
 def draw_frame(frame, frame_size, boxes_dicts, class_names, model_size):

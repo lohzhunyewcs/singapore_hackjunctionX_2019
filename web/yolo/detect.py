@@ -41,7 +41,7 @@ def main(type, iou_threshold, confidence_threshold, input_names):
         saver = tf.train.Saver(tf.global_variables(scope='yolo_v3_model'))
 
         with tf.Session() as sess:
-            saver.restore(sess, './weights/model.ckpt')
+            saver.restore(sess, 'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/weights/model.ckpt')
             detection_result = sess.run(detections, feed_dict={inputs: batch})
 
         ret = []

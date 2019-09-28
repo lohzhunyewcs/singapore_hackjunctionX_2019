@@ -353,7 +353,7 @@ class Yolo_v3:
             A list containing class-to-boxes dictionaries
                 for each sample in the batch.
         """
-        with tf.variable_scope('yolo_v3_model'):
+        with tf.variable_scope('yolo_v3_model', reuse=tf.AUTO_REUSE):
             if self.data_format == 'channels_first':
                 inputs = tf.transpose(inputs, [0, 3, 1, 2])
 
