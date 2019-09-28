@@ -58,9 +58,6 @@ screenshotButton.onclick = function() {
     type: "POST",
     url: "http://127.0.0.1:8000/api/process/",
     data: data_to_sent['imgBase64']//{'data': data_to_sent}
-    fail: function(svg) {
-      
-    }
   }).done(function(o) {
     console.log('saved')
     // const svg1 = document.createElementNS('rect', )
