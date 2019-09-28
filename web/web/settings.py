@@ -11,15 +11,19 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+<<<<<<< HEAD
 import dj_database_url
+=======
+# import dj_database_url
+>>>>>>> 7a74569022b904ebb3646221d45419aa03e21c5b
 # import dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
+# dotenv_file = os.path.join(BASE_DIR, ".env")
+# if os.path.isfile(dotenv_file):
+#     dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -36,14 +40,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+<<<<<<< HEAD
     'restapi.apps.RestapiConfig',
+=======
+    'ecommerce',
+>>>>>>> 7a74569022b904ebb3646221d45419aa03e21c5b
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'rest_framework',
+=======
+
+>>>>>>> 7a74569022b904ebb3646221d45419aa03e21c5b
 ]
 
 MIDDLEWARE = [
@@ -54,7 +66,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 
 
 ]
@@ -128,16 +139,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+=======
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+>>>>>>> 7a74569022b904ebb3646221d45419aa03e21c5b
 
 # import django_heroku
 # django_heroku.settings(locals())
 # del DATABASES['default']['OPTIONS']['sslmode']
 # DATABASES = {}
+<<<<<<< HEAD
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+=======
+# DATABASES['default'] = dj_database_url.config(default='postgres://wgtcontvyippck:08c28043cc125fd2045a4838422ce21cd182b278f8ca18a4e178d93a32b57ee2@ec2-54-197-232-203.compute-1.amazonaws.com:5432/d264psgnhoc8iu', conn_max_age=600)
+>>>>>>> 7a74569022b904ebb3646221d45419aa03e21c5b
 
 
