@@ -46,6 +46,11 @@ input{
 	<p> Stock </p>
 	  <input id="declared fifth" value=" "/>
 	</form>
+            {% if fresh %}
+                <canvas id="canvas" width="640" height="480"></canvas>
+            {% else %}
+                <img src= {{ canvas }}>
+            {% endif %}
 
     </body>
     {% load static %}

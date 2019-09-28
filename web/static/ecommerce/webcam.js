@@ -1,4 +1,21 @@
-'use strict';
+"use strict";
+class Elem {
+    constructor(svg, tag, parent = svg) {
+        this.elem = document.createElementNS(svg.namespaceURI, tag);
+        parent.appendChild(this.elem);
+    }
+    attr(name, value) {
+        if (typeof value === 'undefined') {
+            return this.elem.getAttribute(name);
+        }
+        this.elem.setAttribute(name, value.toString());
+        return this;
+    }
+    observe(event) {
+        return Observable.fromEvent(this.elem, event);
+    }
+}
+
 const constraints = {
   video: true
 };
@@ -24,6 +41,11 @@ screenshotButton.onclick = function() {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
+  // var c = document.getElementById('canvas')
+  // var ctx = c.getContext("2d")
+  // ctx.beginPath()
+  // ctx.rect(0, 0, 150, 100)
+  // ctx.stroke()
   // Other browsers will fall back to image/png
   img.src = canvas.toDataURL();
   let data_to_sent ={ 
@@ -36,19 +58,25 @@ screenshotButton.onclick = function() {
     type: "POST",
     url: "http://127.0.0.1:8000/api/process/",
     data: data_to_sent['imgBase64']//{'data': data_to_sent}
+    fail: function(svg) {
+      
+    }
   }).done(function(o) {
-    console.log('saved'); 
+    console.log('saved')
+    // const svg1 = document.createElementNS('rect', )
+    // document.getElementById('canvas').getContext('2d').rect(50, 100, 20, 70)
+    // document.getElementById('canvas').getContext('2d').lineWidth = 15
     // If you want the file to be visible in the browser 
     // - please modify the callback in javascript. All you
     // need is to return the url to the file, you just saved 
     // and than put the image in your browser.
-  });
-  // const request = new XMLHttpRequest();
-  // request.open('POST', '/api/process/');
-  // const data = new FormData();
-  // data.append("img", img.src);
-  // console.log(data.get("img"));
-  // request.send(data);
+  }).fail((o  ) =>{
+    console.log('fail xD')
+    console.log(`o: ${o}`)
+
+    
+  })
+  
 };
 
 function handleSuccess(stream) {

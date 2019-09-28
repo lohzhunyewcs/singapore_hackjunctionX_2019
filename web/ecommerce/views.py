@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, StreamingHttpResponse
 from yolo import detect
 from django.views.decorators.csrf import csrf_exempt
@@ -14,7 +14,9 @@ import requests
 # Create your views here.
 def index(request):
     context = {
-        "message": "Hello World"
+        "message": "Hello World",
+        'canvas': '',
+        'fresh': True
     }
     return render(request, "ecommerce/index.html", context)
 
@@ -62,9 +64,17 @@ def process_image(request):
     writeFile(file_name, imageBits)
     # images 0.5 0.5 data/images/dog.jpg data/images/office.jpg
     # writeFile()
+<<<<<<< HEAD
     result = detect.main('images', 0.5, 0.5, [f'/home/khaifung/Desktop/singapore_hackjunctionX_2019/web/yolo/data/images/{file_name}'])
     print(f'result: {result}')
     return HttpResponse({'result': 'success'}, content_type='json')
+=======
+    result = detect.main('images', 0.5, 0.5, [f'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/images/{file_name}'])
+    print(f'result: {result[0]}')
+    #imageLink = base64.b64encode(result[1])
+    return HttpResponse({'image':''}, content_type='json')
+#     return render('ecommerce/index.html', {'result': 'success', 'canvas' : imageLink, 'fresh': False})
+>>>>>>> 9a307927352a231270c298361b3b94cd3ee234f6
 
 # def upload_file(request):
 #     if request.method == 'POST':
@@ -78,6 +88,12 @@ def process_image(request):
 
 def SellView(request):
     all_sell_items = Item.objects.all()
-    return render(request, 'selling_list.html',
+    return render(request, 'ecommerce/selling_list.html',
         {'all_sell_items': all_sell_items})
+
+#template for tabs
+def contact(request):
+    return render(request, 'ecommerce/basic.html',
+     {'content':["If you would like to contact me, please email me", "jiawchong@gmail.com"]}
+     )
 

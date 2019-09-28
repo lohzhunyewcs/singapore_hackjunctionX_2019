@@ -87,8 +87,9 @@ def draw_boxes(img_names, boxes_dicts, class_names, model_size):
 
 
         rgb_img = img.convert('RGB')
-
-        rgb_img.save('D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/detections/detection_' + str(num + 1) + '.jpg')
+        address = 'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/detections/detection_' + str(num + 1) + '.jpg'
+        rgb_img.save(address)
+        return rgb_img
 
 
 def draw_frame(frame, frame_size, boxes_dicts, class_names, model_size):
