@@ -53,11 +53,11 @@ def main(type, iou_threshold, confidence_threshold, input_names):
                 if np.size(boxes) != 0:
                     for box in boxes:
                         ret.append(class_names[cls])
-
-        draw_boxes(input_names, detection_result, class_names, _MODEL_SIZE)
+ 
+        img = draw_boxes(input_names, detection_result, class_names, _MODEL_SIZE)
 
         print('Detections have been saved successfully.')
-        return ret
+        return [ret, img]
 
     elif type == 'video':
         inputs = tf.placeholder(tf.float32, [1, *_MODEL_SIZE, 3])
