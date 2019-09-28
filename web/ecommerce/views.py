@@ -84,8 +84,5 @@ def SellView(request):
         {'all_sell_items': all_sell_items})
 
 #template for tabs
-def contact(request):
-    return render(request, 'ecommerce/basic.html',
-     {'content':["If you would like to contact me, please email me", "jiawchong@gmail.com"]}
-     )
-
+def charts(request):
+    return render(request, 'ecommerce/charts.html')
