@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+
+<style>
+form{
+	overflow: hidden;
+	float: right;
+	clear: both;
+}
+input{
+	float: right;
+	clear: both;
+}
+</style>
+
+
 <html>
     <title>Sell something</title>
     <body>
@@ -19,6 +33,20 @@
         
             <!-- Webcam video snapshot -->
             <canvas id="canvas" width="640" height="480"></canvas>
+
+	<form class="form">
+	<p> Name </p>
+	  <input id="declared_first" value=" " />
+	<p> Description </p>
+	  <input id="declared_second" value=" " />
+	<p> Price </p>
+	  <input id="declared_third" value=" " />
+	<p> Category </p>
+	  <input id="declared_fourth" value=" "/>
+	<p> Stock </p>
+	  <input id="declared fifth" value=" "/>
+	</form>
+
     </body>
     {% load static %}
     <script src="{% static "ecommerce/webcam.js" %}"></script>
