@@ -64,17 +64,9 @@ def process_image(request):
     writeFile(file_name, imageBits)
     # images 0.5 0.5 data/images/dog.jpg data/images/office.jpg
     # writeFile()
-<<<<<<< HEAD
     result = detect.main('images', 0.5, 0.5, [f'/home/khaifung/Desktop/singapore_hackjunctionX_2019/web/yolo/data/images/{file_name}'])
     print(f'result: {result}')
     return HttpResponse({'result': 'success'}, content_type='json')
-=======
-    result = detect.main('images', 0.5, 0.5, [f'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/images/{file_name}'])
-    print(f'result: {result[0]}')
-    #imageLink = base64.b64encode(result[1])
-    return HttpResponse({'image':''}, content_type='json')
-#     return render('ecommerce/index.html', {'result': 'success', 'canvas' : imageLink, 'fresh': False})
->>>>>>> 9a307927352a231270c298361b3b94cd3ee234f6
 
 # def upload_file(request):
 #     if request.method == 'POST':
