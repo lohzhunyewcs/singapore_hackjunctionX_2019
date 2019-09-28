@@ -82,6 +82,6 @@ class Order(models.Model):
         return self.order_id
 
 # The bridge table between Order and Item
-class Order_Item(order.Model):
+class Order_Item(models.Model):
     item = models.ForeignKey(Item, on_delete = models.SET_NULL, null = True)
     order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True)
