@@ -33,6 +33,7 @@ class FinalCategory(models.Model):
 # The taken photo from webcam = PRODUCT
 class Product(models.Model):
     name = models.CharField(max_length = 100)
+
     category = models.ForeignKey(FinalCategory, on_delete=models.SET_NULL, null=True)
 
 ## ** ## ** TODO: Fill up upload_to which saves the taken photo onto the directory
@@ -64,4 +65,7 @@ class Item(models.Model):
     
     def __str__(self):
         return self.name
+
+    
+
 
