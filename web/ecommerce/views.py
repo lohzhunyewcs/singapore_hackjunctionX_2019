@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
 from PIL import Image
 import base64
+from .models import Item
 
 import cv2
 import numpy as np
@@ -70,3 +71,13 @@ def process_image(request):
 #         form = UploadFileForm(request.POST, request.FILES)
 #         if form.is_valid():
 #             (request.FILES['file'])
+#     result = detect.main('images', 0.5, 0.5, image)
+#     print(result)
+#     return True
+
+
+def SellView(request):
+    all_sell_items = Item.objects.all()
+    return render(request, 'selling_list.html',
+        {'all_sell_items': all_sell_items})
+

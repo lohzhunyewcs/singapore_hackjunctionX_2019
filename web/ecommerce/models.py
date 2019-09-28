@@ -33,6 +33,7 @@ class FinalCategory(models.Model):
 # The taken photo from webcam = PRODUCT
 class Product(models.Model):
     name = models.CharField(max_length = 100)
+
     category = models.ForeignKey(FinalCategory, on_delete=models.SET_NULL, null=True)
 
 ## ** ## ** TODO: Fill up upload_to which saves the taken photo onto the directory
@@ -65,3 +66,22 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+
+# The customer of SHOPEE
+class Customer(models.Model):
+    name = models.CharField(max_length = 100)
+        
+    def __str__(self):
+        return self.name
+
+# The Order of an Item bought by a customer of SHOPEE (Order:Item is a M:N realtionship)
+class Order(models.Model):
+    order_id = models.IntegerField()
+        
+    def __str__(self):
+        return self.order_id
+
+# The bridge table between Order and Item
+class Order_Item(models.Model):
+    item = models.ForeignKey(Item, on_delete = models.SET_NULL, null = True)
+    order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True)
