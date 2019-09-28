@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from yolo import detect
 from django.views.decorators.csrf import csrf_exempt
+from .models import Item
 
 import requests
 
@@ -22,3 +23,10 @@ def process_image(request):
     result = detect.main('images', 0.5, 0.5, image)
     print(result)
     return True
+
+
+def SellView(request):
+    all_sell_items = Item.objects.all()
+    return render(request, 'selling_list.html',
+        {'all_sell_items': all_sell_items})
+
