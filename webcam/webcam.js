@@ -17,6 +17,7 @@ async function init() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     handleSuccess(stream);
+    return stream;
   } catch (e) {
     errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
   }
@@ -29,7 +30,7 @@ function handleSuccess(stream) {
 }
 
 // Load init
-init();
+stream = init();
 
 // Draw image
 var context = canvas.getContext('2d');

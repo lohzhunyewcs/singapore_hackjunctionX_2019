@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <title>Sell something</title>
+    <body>
+        <h1>Sell a product</h1>
+        Take photo(s) of your product here
+        <!-- Stream video via webcam -->
+        <div class="video-wrap">
+                <video id="video" playsinline autoplay></video>
+            </div>
+        
+            <!-- Trigger canvas web API -->
+            <div class="controller">
+                <button id="snap">Capture</button>
+            </div>
+        
+            <!-- Webcam video snapshot -->
+            <canvas id="canvas" width="640" height="480"></canvas>
+    </body>
+    {% load static %}
+    <script src="{% static "ecommerce/webcam.js" %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</html> 
