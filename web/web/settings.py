@@ -11,11 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-<<<<<<< HEAD
-import dj_database_url
-=======
 # import dj_database_url
->>>>>>> 7a74569022b904ebb3646221d45419aa03e21c5b
 # import dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
