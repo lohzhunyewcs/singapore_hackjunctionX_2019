@@ -6,7 +6,8 @@ from .forms import UploadFileForm
 from PIL import Image
 import base64
 from .models import Item
-
+from django.http import JsonResponse
+import json
 import cv2
 import numpy as np
 import requests
@@ -42,6 +43,8 @@ def decode_base64(data, altchars=b'+/'):
         data += b'='* (4 - missing_padding)
     return base64.b64decode(data, altchars)
 
+resultChoices = [["Singlet", "Jeans", "Socks"]]
+
 # API
 @csrf_exempt
 def process_image(request):
@@ -65,10 +68,35 @@ def process_image(request):
     # images 0.5 0.5 data/images/dog.jpg data/images/office.jpg
     # writeFile()
     result = detect.main('images', 0.5, 0.5, [f'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/images/{file_name}'])
+    resultChoices.append(filter(lambda e: e != "person",result[0]))
     print(f'result: {result[0]}')
     #imageLink = base64.b64encode(result[1])
     return HttpResponse({'image':''}, content_type='json')
 #     return render('ecommerce/index.html', {'result': 'success', 'canvas' : imageLink, 'fresh': False})
+
+#TODO: Add the next 2 to urls.py
+def chooseItem(request):
+        li = resultChoices.pop()
+        context = {
+                "items": li
+        }
+        return render(request, "ecommerce/choose_items.html", context=context)
+
+@csrf_exempt
+def makechoice(request):
+        # print(f'request.body: {type(request.body.decode("utf-8") )}')
+        # print(f'request.body: {JsonResponse(request.body.decode("utf-8"),safe=False )}')
+        # print(f'request.get: {request.FILES.get("choice")}')
+        jsonFile = json.loads((request.body.decode("utf-8")))
+        print(f'jsonFile: {jsonFile}, type: {type(jsonFile)}')
+        choice = jsonFile['choice']
+        # print(f'choice: {choice}')    
+        category, price = getCatPrice(choice)
+        return JsonResponse(json.dumps(({'category': category, 'price': price})), safe=False)
+
+def getCatPrice(choice):
+        # TOD O: do something
+        return 'shirt', 100
 
 # def upload_file(request):
 #     if request.method == 'POST':
