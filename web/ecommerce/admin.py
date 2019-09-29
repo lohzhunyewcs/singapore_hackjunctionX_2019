@@ -1,7 +1,7 @@
 from django.contrib import admin
-from ecommerce.models import Post, Category, SubCategory, FinalCategory, Product, Seller, Item, Customer, Order, Order_Item
+from ecommerce.models import Category, SubCategory, FinalCategory, Product, Seller, Item, Customer, Order, Order_Item
 # Register your models here.
-admin.site.register(Post)
+# admin.site.register(Post)
 admin.site.register(Category)
 admin.site.register(SubCategory)
 admin.site.register(FinalCategory)
