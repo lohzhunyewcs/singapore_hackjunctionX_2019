@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+import pandas as pd
+import string
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=50)
@@ -11,11 +12,16 @@ class Post(models.Model):
         return self.title
 
 # Category of the products : eg - Electronics, Fashion, Sports
+
+
 class Category(models.Model):
     name = models.CharField(max_length = 100)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 class SubCategory(models.Model):
     name = models.CharField(max_length = 100)
@@ -85,3 +91,38 @@ class Order(models.Model):
 class Order_Item(models.Model):
     item = models.ForeignKey(Item, on_delete = models.SET_NULL, null = True)
     order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True)
+
+
+def load_CatProd(cats123, prod_l):
+    for k in range(len(cats123)):
+        cats123[k] = list(cats123[k])
+    for i in range(len(cats123[0])):
+        cat_obj = Category(name=cats123[0][i])
+        sub_cat_obj = SubCategory(name=cats123[1][i], parent_cat=cat_obj)
+        final_cat_obj = SubCategory(name=cats123[2][i], parent_cat=sub_cat_obj)
+        prod_obj = Product(name=prod_l[i], category=final_cat_obj)
+
+
+    
+# csv_file = "ecommerce/product_dataset.csv"
+# df = pd.read_csv(csv_file)
+# categories_l = df.product_category_tree
+# prod_name_l = df.product_name
+
+# prod_names = []
+# cats123 = [set(),set(),set()]
+# for i in range(len(categories_l)):
+#     this_l = [ x.strip().translate(str.maketrans('','', string.punctuation)).lower() for x in categories_l[i].split(">>")]
+
+#     if len(this_l) < 3:
+#         break
+#     if len(this_l) > 3:
+#         this_l = this_l[(len(this_l)-3):]
+
+#     for k in range(len(this_l)):
+#         ind_cat = this_l[k]
+#         cats123[k].add(ind_cat)
+
+#     prod_names.append(prod_name_l[i])
+
+# load_CatProd(cats123, prod_names)

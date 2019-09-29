@@ -24,7 +24,7 @@ def index(request):
 def writeFile(file_name, bits):
     imgdata = base64.b64decode(bits)
     filename = f'{file_name}'  # I assume you have a way of picking unique filenames
-    with open(f'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/images/{filename}', 'wb') as f:
+    with open(f'/home/khaifung/Desktop/singapore_hackjunctionX_2019/web/yolo/data/images/{filename}', 'wb') as f:
         f.write(imgdata)
 
 import base64
@@ -113,3 +113,6 @@ def SellView(request):
     return render(request, 'ecommerce/selling_list.html',
         {'all_sell_items': all_sell_items})
 
+#template for tabs
+def charts(request):
+    return render(request, 'ecommerce/charts.html')
