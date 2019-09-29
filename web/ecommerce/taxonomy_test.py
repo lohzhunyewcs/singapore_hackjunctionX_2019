@@ -5,7 +5,7 @@ from django.conf import settings
 import string
 
 
-
+#using naive  bayes for text classification on our small dataset
 csv_file = "product_dataset.csv"
 df = pd.read_csv(csv_file)
 categories_l = df.product_category_tree
@@ -47,7 +47,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import GaussianNB
 
-keyword = "laptop cover" #change this to getting input from detection
+keyword ="laptop cover" #change this to getting input from detection
 
 nb = Pipeline([('vect', CountVectorizer()),
                ('tfidf', TfidfTransformer()),
@@ -74,5 +74,26 @@ for i in range(len(prod_names)):
 nb.fit(prod_names, cats123[2])
 c3 = nb.predict([keyword])
 
-print(f"{c1} -> {c2} -> {c3}")
+print(f"{c1[0]} -> {c2[0]} -> {c3[0]}")
 
+#using api (not on our dataset)
+import requests
+import json
+
+#input key
+product_name = keyword
+
+headers = {
+    'Authorization': 'Bearer bloxlh1emsMJg6slDrW27c6PByvHHCZk',
+}
+params = {
+    'productName': product_name,
+    'limit': '3'
+}
+
+response = requests.get('https://ml-eu.europe-west1.gcp.commercetools.com/bbc-junctionx/recommendations/general-categories', headers=headers, params=params)
+parsed_json = response.json()
+
+
+cat_hier = [x["categoryName"] for x in parsed_json["results"]]
+print('-> '.join(cat_hier))
