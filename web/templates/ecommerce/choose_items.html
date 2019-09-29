@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <title>Choose what to sell</title>
+    <body>
+        <h1>Choose which product you would like to sell</h1>
+        Please choose which of the detected items you would like to sell
+        <br>
+        If you believe that the item you would like to sell is not listed,
+        please take an alternative photo.
+        <br>
+        Choose an Item:
+        <select id = "choice">
+            {% for item in items %}
+                <option value="{{ item }}">{{ item }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        Category: <input type="text" id="category" name="category_box" value="">
+        <br>
+        Price: <input type="text" id="price" name="price_box" value="0.00">
+        <br>
+        Product Name: <input type="text" id="product_name" name="p_name_box" value="Product Name">
+        <br>
+        Description: <input type="text" id="description" name="desc_box" value="Description goes here">
+        <br>
+        Quantity: <input type="text" id="quantity" name="quantity_box" value="Quantity">
+        <!-- <select id = "category">
+            {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select> -->
+    </body>
+    {% load static %}
+    <script src="{% static "ecommerce/choose_items.js" %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</html> 

@@ -70,8 +70,9 @@ screenshotButton.onclick = function() {
   }).fail((o  ) =>{
     console.log('fail xD')
     console.log(`o: ${o}`)
-
-    
+    // localStorage.setItem('image_link', )
+    // Do above in python
+    window.location.href = "http://127.0.0.1:8000/choose_items/"
   })
   
 };
