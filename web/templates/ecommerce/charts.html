@@ -142,13 +142,27 @@
 	</div>
 	<br>
 	<br>
+	<div style="width:75%;">
+		<canvas id="pie_canvas"></canvas>
+	</div>
+	<br>
+	<br>
 	<button id="randomizeData">Randomize Data</button>
 	<button id="addDataset">Add Dataset</button>
 	<button id="removeDataset">Remove Dataset</button>
 	<button id="addData">Add Data</button>
 	<button id="removeData">Remove Data</button>
+	<br>
+	<br>
 	<script>
 		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		var chartData = [randomScalingFactor(),
+						 randomScalingFactor(),
+						 randomScalingFactor(),
+						 randomScalingFactor(),
+						 randomScalingFactor(),
+						 randomScalingFactor(),
+						 randomScalingFactor()]
 		var configA = {
 			type: 'line',
 			data: {
@@ -157,30 +171,8 @@
 					label: 'My First dataset',
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
-					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
-					],
+					data: chartData,
 					fill: false,
-				}, {
-					label: 'My Second dataset',
-					fill: false,
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
-					],
 				}]
 			},
 			options: {
@@ -216,20 +208,39 @@
 			}
 		};
 
+		var configB = {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: chartData,
+					backgroundColor: Object.values(window.chartColors),
+					label: 'My First Dataset'
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Pie Chart'
+				}
+			}
+		};
+
 		window.onload = function() {
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myLine = new Chart(ctx, configA);
+			var ctx2 = document.getElementById('pie_canvas').getContext('2d');
+			window.myPie = new Chart(ctx2, configB);
 		};
 
 		document.getElementById('randomizeData').addEventListener('click', function() {
-			configA.data.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return randomScalingFactor();
-				});
-
-			});
+			for (let i = 0; i < chartData.length; i++) {
+				chartData[i] = randomScalingFactor()
+			}
+			configA.data.datasets[0].data = chartData;
 
 			window.myLine.update();
+			window.myPie.update();
 		});
 
 		var colorNames = Object.keys(window.chartColors);
