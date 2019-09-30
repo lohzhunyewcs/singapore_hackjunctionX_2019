@@ -1,12 +1,13 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, StreamingHttpResponse
+from django.http import HttpResponse, JsonResponse
 from yolo import detect
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
 from PIL import Image
 import base64
 from .models import Item
-from django.http import JsonResponse
+from .taxonomy_test import get_cat
+
 import json
 import cv2
 import numpy as np
@@ -24,7 +25,7 @@ def index(request):
 def writeFile(file_name, bits):
     imgdata = base64.b64decode(bits)
     filename = f'{file_name}'  # I assume you have a way of picking unique filenames
-    with open(f'/home/khaifung/Desktop/singapore_hackjunctionX_2019/web/yolo/data/images/{filename}', 'wb') as f:
+    with open(f'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/images/{filename}', 'wb') as f:
         f.write(imgdata)
 
 import base64
@@ -68,7 +69,9 @@ def process_image(request):
     # images 0.5 0.5 data/images/dog.jpg data/images/office.jpg
     # writeFile()
     result = detect.main('images', 0.5, 0.5, [f'D:/GitLab_respos/singapore_hackjunctionX_2019/singapore_hackjunctionX_2019/web/yolo/data/images/{file_name}'])
-    resultChoices.append(filter(lambda e: e != "person",result[0]))
+    resultChoices.append(list(filter(lambda e: e != "person",result[0])))
+    if len(resultChoices[-1]) == 0:
+            resultChoices[-1].append('bottle')
     print(f'result: {result[0]}')
     #imageLink = base64.b64encode(result[1])
     return HttpResponse({'image':''}, content_type='json')
@@ -76,7 +79,10 @@ def process_image(request):
 
 #TODO: Add the next 2 to urls.py
 def chooseItem(request):
-        li = resultChoices.pop()
+        try:
+                li = resultChoices.pop()
+        except IndexError:
+                li = ['laptop cover', 'socks', 'shoe']
         context = {
                 "items": li
         }
@@ -95,8 +101,13 @@ def makechoice(request):
         return JsonResponse(json.dumps(({'category': category, 'price': price})), safe=False)
 
 def getCatPrice(choice):
+        jw_cat, api_cat, price = get_cat(choice)
+        print(f'jw_cat: {jw_cat}, api_cat: {api_cat}')
         # TOD O: do something
-        return 'shirt', 100
+        if api_cat == ["a", "b'"]:
+                return jw_cat, "{0:.2f}".format(price)
+        else:
+                return api_cat, "{0:.2f}".format(price)
 
 # def upload_file(request):
 #     if request.method == 'POST':

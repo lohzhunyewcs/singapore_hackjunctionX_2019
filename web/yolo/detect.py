@@ -54,7 +54,7 @@ def main(type, iou_threshold, confidence_threshold, input_names):
                     for box in boxes:
                         ret.append(class_names[cls])
  
-        img = draw_boxes(input_names, detection_result, class_names, _MODEL_SIZE)
+        img= draw_boxes(input_names, detection_result, class_names, _MODEL_SIZE)
 
         print('Detections have been saved successfully.')
         return [ret, img]
